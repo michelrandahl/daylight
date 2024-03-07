@@ -52,26 +52,28 @@ local center = hsl("#a401f4")
 local center_right = hsl("#5300f5")
 local center_right_right = hsl("#0300f5")
 
+local weak_yellow = center_right_right.ro(180).li(50)
+local green = center_left_left.ro(180).li(10)
+
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
 local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
+
     Normal         { bg = hsl("#ffffff"), fg = hsl("#000000") }, -- Normal text
-    CursorLine     { bg = Normal.bg.da(15) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+    CursorLine     { bg = Normal.bg.da(10) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     CursorColumn   { CursorLine }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
     LineNr         { Normal }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     CursorLineNr   { CursorLine, gui = "bold" }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    Search         { bg = center_left.li(80) }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
+    Search         { bg = weak_yellow, fg = Normal.fg }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
     CurSearch      { bg = Normal.fg, fg = Normal.bg, gui = "bold" }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
     MatchParen     { CurSearch }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     Visual         { fg = Normal.bg, bg = Normal.fg }, -- Visual mode selection
 
-    --Statement      { fg = Normal.fg, gui = "bold" }, -- (*) Any statement
     Statement      { fg = center_left.da(30), gui = "bold" }, -- (*) Any statement
     Special        { fg = center_right_right.li(20), gui = "bold" }, -- (*) Any special symbol
-    --Type           { fg = center_left.da(50) }, -- (*) int, long, char, etc.
     Type           { fg = Normal.fg, gui = "bold" }, -- (*) int, long, char, etc.
     Typedef        { Type, gui = "bold,underline" }, --   A typedef
     Identifier     { fg = Normal.fg }, -- (*) Any variable name
@@ -79,16 +81,15 @@ local theme = lush(function(injected_functions)
     Function       { fg = Special.fg.ro(-40).da(40), gui = "bold,italic" }, --   Function name (also: methods for classes)
     Comment        { fg = Normal.fg.li(45), gui = "italic" }, -- Any comment
 
-
-    NormalFloat    { bg = Normal.bg.da(15) }, -- Normal text in floating windows.
+    NormalFloat    { bg = green.li(75) }, -- Normal text in floating windows.
     FloatTitle     { NormalFloat }, -- Title of floating windows.
     FloatBorder    { NormalFloat }, -- Border of floating windows.
     Directory      { fg = Normal.fg, gui = "bold,italic" }, -- Directory names (and other special names in listings)
 
-    WarningMsg     { fg = center_right_right.ro(180), bg = Normal.fg.li(20), gui = "italic" }, -- Warning messages
-    ErrorMsg       { fg = center_left_left.li(30), bg = Normal.fg.li(20), gui = "italic"}, -- Error messages on the command line
-    Error          { ErrorMsg }, -- Any erroneous construct
-    DiagnosticError            { ErrorMsg } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    WarningMsg     { fg = center_right_right.ro(180), bg = Normal.fg, gui = "italic" }, -- Warning messages
+    ErrorMsg       { fg = center_left_left.da(20), gui = "italic,bold" }, -- Error messages on the command line
+    Error          {  fg = center_left_left.li(30), bg = Normal.fg, gui = "italic" }, -- Any erroneous construct
+    DiagnosticError            { Error } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     DiagnosticWarn             { WarningMsg } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     DiagnosticFloatingError    { gui = "bold" } , -- Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
     DiagnosticFloatingWarn     { gui = "bold" } , -- Used to color "Warn" diagnostic messages in diagnostics float.
@@ -98,9 +99,9 @@ local theme = lush(function(injected_functions)
     PmenuSel       { fg = Normal.fg, CursorLine, gui = "bold" }, -- Popup menu: Selected item.
 
 
-    DiffDelete     { bg = center_left_left, fg = Normal.fg }, -- Diff mode: Deleted line |diff.txt|
+    DiffDelete     { bg = center_left_left.li(60), fg = Normal.fg }, -- Diff mode: Deleted line |diff.txt|
     DiffChange     { bg = center_right_right.li(80), fg = Normal.fg }, -- Diff mode: Changed line |diff.txt|
-    DiffAdd        { bg = DiffDelete.bg.ro(180).li(10), fg = Normal.fg }, -- Diff mode: Added line |diff.txt|
+    DiffAdd        { bg = green, fg = Normal.fg }, -- Diff mode: Added line |diff.txt|
 
     -- groups, mostly used for styling UI elements.
     -- Comment them out and add your own properties to override the defaults.
