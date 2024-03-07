@@ -1,13 +1,16 @@
 # Daylight Colorscheme for Neovim (WIP)
 
-Daylight is a vibrant, outdoor-friendly colorscheme for Neovim that thrives under the bright sunlight. It is built using [Lush.nvim](https://github.com/rktjmp/lush.nvim) framework to provide a pure white background that minimizes screen reflections and utilizes a palette designed for optimal legibility in sunlight.
+Daylight is a vibrant, outdoor-friendly colorscheme for Neovim that thrives under the bright sunlight. It is built using [Lush.nvim](https://github.com/rktjmp/lush.nvim) framework, and aims to provide a pure white background that minimizes screen reflections and utilizes a palette designed for optimal legibility in sunlight.
+
+
+![Daylight colorscheme screenshot](./screenshots/purescript+typescript.png)
 
 ## Features
 
 - **Pure White Background**: Maximizes readability outdoors by reducing glare and reflections.
 - **Eye-friendly Colors**: Carefully selected colors to ensure text is easily distinguishable without straining the eyes.
-- **Outdoor Optimization**: Avoids the use of bright yellow and green on important elements to maintain visibility on a white background.
-- **Work In Progress**: The color selection my change radically from what it is now, but the goal remains to create a colorscheme that is useful when working outdoors on a laptop screen.
+- **Outdoor Optimization**: Avoids the use of bright non-saturated yellow, green and orange for important code elements, to make it easier to read in sunlight.
+- **Work In Progress**: The color selection might change radically from what it is now, but the goal remains to create a colorscheme that is useful when working outdoors on a laptop screen.
 
 ## Installation
 

@@ -46,6 +46,7 @@ local lush = require('lush')
 local hsl = lush.hsl
 
 
+-- using https://color.adobe.com/create/color-wheel as a starting point
 local center_left_left = hsl("#f50065")
 local center_left = hsl("#f300f5")
 local center = hsl("#a401f4")
