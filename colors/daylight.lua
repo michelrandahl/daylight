@@ -1,3 +1,6 @@
+local lush = require('lush')
+local daylight = require('lush_theme.daylight')
+
 -- You probably always want to set this in your vim file
 vim.opt.background = 'light'
 vim.g.colors_name = 'daylight'
@@ -16,6 +19,10 @@ vim.g.colors_name = 'daylight'
 -- *nanoseconds* and such could be considered "production safe".
 package.loaded['lush_theme.daylight'] = nil
 
--- include our theme file and pass it to lush to apply
-require('lush')(require('lush_theme.daylight'))
+local spec = lush.extends({daylight}).with(function()
+  return {
+    Function { fg = daylight.Special.fg.ro(-40).da(40), gui = "bold,italic" }
+  }
+end)
 
+lush(spec)

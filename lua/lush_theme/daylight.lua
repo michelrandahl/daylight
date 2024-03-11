@@ -56,6 +56,7 @@ local center_right_right = hsl("#0300f5")
 local weak_yellow = center_right_right.ro(180).li(50)
 local green = center_left_left.ro(180).li(10)
 
+
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
@@ -63,26 +64,28 @@ local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
 
-    Normal         { bg = hsl("#ffffff"), fg = hsl("#000000") }, -- Normal text
-    CursorLine     { bg = Normal.bg.da(10) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+    Normal         { bg = hsl("#ffffff"), fg = hsl("#000000"), gui = "NONE" }, -- Normal text
+    CursorLine     { bg = Normal.bg.da(12) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     CursorColumn   { CursorLine }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
     LineNr         { Normal }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     CursorLineNr   { CursorLine, gui = "bold" }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
     Search         { bg = weak_yellow, fg = Normal.fg }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
     CurSearch      { bg = Normal.fg, fg = Normal.bg, gui = "bold" }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
-    MatchParen     { CurSearch }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    MatchParen     { Search, gui = "bold" }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     Visual         { fg = Normal.bg, bg = Normal.fg }, -- Visual mode selection
 
     Statement      { fg = center_left.da(30), gui = "bold" }, -- (*) Any statement
     Special        { fg = center_right_right.li(20), gui = "bold" }, -- (*) Any special symbol
     Type           { fg = Normal.fg, gui = "bold" }, -- (*) int, long, char, etc.
-    Typedef        { Type, gui = "bold,underline" }, --   A typedef
+    Typedef        { fg = Normal.fg, gui = "italic" }, --   A typedef
     Identifier     { fg = Normal.fg }, -- (*) Any variable name
     Constant       { fg = center_left_left.da(40), gui = "bold" }, -- (*) Any constant
-    Function       { fg = Special.fg.ro(-40).da(40), gui = "bold,italic" }, --   Function name (also: methods for classes)
+    -- NOTE: we are defining Function in the main lua file. Otherwise it will affect all fields in this table when we call `:Lushify`
+    --Function       {}, --   Function name (also: methods for classes)
     Comment        { fg = Normal.fg.li(45), gui = "italic" }, -- Any comment
 
-    NormalFloat    { bg = green.li(75) }, -- Normal text in floating windows.
+    --NormalFloat    { bg = green.li(75) }, -- Normal text in floating windows.
+    NormalFloat    { bg = Normal.bg.da(5) }, -- Normal text in floating windows.
     FloatTitle     { NormalFloat }, -- Title of floating windows.
     FloatBorder    { NormalFloat }, -- Border of floating windows.
     Directory      { fg = Normal.fg, gui = "bold,italic" }, -- Directory names (and other special names in listings)
@@ -100,9 +103,13 @@ local theme = lush(function(injected_functions)
     PmenuSel       { fg = Normal.fg, CursorLine, gui = "bold" }, -- Popup menu: Selected item.
 
 
-    DiffDelete     { bg = center_left_left.li(60), fg = Normal.fg }, -- Diff mode: Deleted line |diff.txt|
-    DiffChange     { bg = center_right_right.li(80), fg = Normal.fg }, -- Diff mode: Changed line |diff.txt|
-    DiffAdd        { bg = green, fg = Normal.fg }, -- Diff mode: Added line |diff.txt|
+    DiffDelete     { bg = center_left_left.li(60) }, -- Diff mode: Deleted line |diff.txt|
+    DiffChange     { bg = center_right_right.li(80) }, -- Diff mode: Changed line |diff.txt|
+    DiffAdd        { bg = green }, -- Diff mode: Added line |diff.txt|
+    DiffText       { bg = center_left_left }, -- Diff mode: Changed text within a changed line |diff.txt|
+
+    TelescopeNormal { fg = Normal.fg, bg = Normal.bg.da(5) },
+    TelescopeMatching { fg = center_left_left, gui = "bold" }, -- normally linked to Special
 
     -- groups, mostly used for styling UI elements.
     -- Comment them out and add your own properties to override the defaults.
@@ -118,7 +125,6 @@ local theme = lush(function(injected_functions)
     -- Cursor         { }, -- Character under the cursor
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
-    -- DiffText       { }, -- Diff mode: Changed text within a changed line |diff.txt|
     -- EndOfBuffer    { }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
     -- TermCursor     { }, -- Cursor in a focused terminal
     -- TermCursorNC   { }, -- Cursor in an unfocused terminal
