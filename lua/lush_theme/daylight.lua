@@ -55,6 +55,7 @@ local center_right_right = hsl("#0300f5")
 
 local weak_yellow = center_right_right.ro(180).li(50)
 local green = center_left_left.ro(180).li(10)
+local light_red = center_left_left.li(60)
 
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
@@ -63,6 +64,7 @@ local green = center_left_left.ro(180).li(10)
 local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
+    -- NOTE: use `:Inspect` to find the highlight group of some text when having some code open in neovim
 
     Normal         { bg = hsl("#ffffff"), fg = hsl("#000000"), gui = "NONE" }, -- Normal text
     CursorLine     { bg = Normal.bg.da(12) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
@@ -97,16 +99,17 @@ local theme = lush(function(injected_functions)
     DiagnosticWarn             { WarningMsg } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     DiagnosticFloatingError    { gui = "bold" } , -- Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
     DiagnosticFloatingWarn     { gui = "bold" } , -- Used to color "Warn" diagnostic messages in diagnostics float.
+    DiagnosticHint             { fg = Normal.fg, gui = "bold" } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     Todo           { WarningMsg, gui = "bold,italic" }, -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX
     Pmenu          { bg = Normal.fg.li(65), fg = Normal.fg }, -- Popup menu: Normal item.
     PmenuKind      { ErrorMsg }, -- Popup menu: Normal item "kind"
     PmenuSel       { fg = Normal.fg, CursorLine, gui = "bold" }, -- Popup menu: Selected item.
 
 
-    DiffDelete     { bg = center_left_left.li(60) }, -- Diff mode: Deleted line |diff.txt|
-    DiffChange     { bg = center_right_right.li(80) }, -- Diff mode: Changed line |diff.txt|
-    DiffAdd        { bg = green }, -- Diff mode: Added line |diff.txt|
-    DiffText       { bg = center_left_left }, -- Diff mode: Changed text within a changed line |diff.txt|
+    DiffDelete     { bg = light_red, fg = Normal.fg }, -- Diff mode: Deleted line |diff.txt|
+    DiffChange     { bg = center_right_right.li(80), fg = Normal.fg }, -- Diff mode: Changed line |diff.txt|
+    DiffAdd        { bg = green, fg = Normal.fg }, -- Diff mode: Added line |diff.txt|
+    DiffText       { bg = light_red, fg = Normal.fg }, -- Diff mode: Changed text within a changed line |diff.txt|
 
     TelescopeNormal { fg = Normal.fg, bg = Normal.bg.da(5) },
     TelescopeMatching { fg = center_left_left, gui = "bold" }, -- normally linked to Special
