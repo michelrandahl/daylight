@@ -85,6 +85,7 @@ local theme = lush(function(injected_functions)
     -- NOTE: we are defining Function in the main lua file. Otherwise it will affect all fields in this table when we call `:Lushify`
     --Function       {}, --   Function name (also: methods for classes)
     Comment        { fg = Normal.fg.li(45), gui = "italic" }, -- Any comment
+    sym"@comment.documentation.javascript" {Type},
 
     --NormalFloat    { bg = green.li(75) }, -- Normal text in floating windows.
     NormalFloat    { bg = Normal.bg.da(5) }, -- Normal text in floating windows.
@@ -104,6 +105,7 @@ local theme = lush(function(injected_functions)
     Pmenu          { bg = Normal.fg.li(65), fg = Normal.fg }, -- Popup menu: Normal item.
     PmenuKind      { ErrorMsg }, -- Popup menu: Normal item "kind"
     PmenuSel       { fg = Normal.fg, CursorLine, gui = "bold" }, -- Popup menu: Selected item.
+    SignColumn     { bg = Normal.bg }, -- Column where |signs| are displayed
 
 
     DiffDelete     { bg = light_red, fg = Normal.fg }, -- Diff mode: Deleted line |diff.txt|
@@ -134,7 +136,6 @@ local theme = lush(function(injected_functions)
     -- VertSplit      { }, -- Column separating vertically split windows
     -- Folded         { }, -- Line used for closed folds
     -- FoldColumn     { }, -- 'foldcolumn'
-    -- SignColumn     { }, -- Column where |signs| are displayed
     -- IncSearch      { }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     -- Substitute     { }, -- |:substitute| replacement text highlighting
     -- LineNrAbove    { }, -- Line number for when the 'relativenumber' option is set, above the cursor line
