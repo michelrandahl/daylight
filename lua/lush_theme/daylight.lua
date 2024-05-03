@@ -102,9 +102,9 @@ local theme = lush(function(injected_functions)
     DiagnosticFloatingWarn     { gui = "bold" } , -- Used to color "Warn" diagnostic messages in diagnostics float.
     DiagnosticHint             { fg = Normal.fg, gui = "bold" } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     Todo           { WarningMsg, gui = "bold,italic" }, -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Pmenu          { bg = Normal.fg.li(65), fg = Normal.fg }, -- Popup menu: Normal item.
+    Pmenu          { bg = Normal.fg.li(90), fg = Normal.fg }, -- Popup menu: Normal item.
     PmenuKind      { ErrorMsg }, -- Popup menu: Normal item "kind"
-    PmenuSel       { fg = Normal.fg, CursorLine, gui = "bold" }, -- Popup menu: Selected item.
+    PmenuSel       { fg = Normal.bg, bg = Normal.fg }, -- Popup menu: Selected item.
     SignColumn     { bg = Normal.bg }, -- Column where |signs| are displayed
 
 
@@ -115,6 +115,9 @@ local theme = lush(function(injected_functions)
 
     TelescopeNormal { fg = Normal.fg, bg = Normal.bg.da(5) },
     TelescopeMatching { fg = center_left_left, gui = "bold" }, -- normally linked to Special
+
+    StatusLine     { fg = Normal.fg.da(10), bg = Normal.bg.li(10), gui = "bold" }, -- Status line of current window
+    StatusLineNC   { fg = Normal.fg.da(20), bg = Normal.bg.li(20) }, -- Status lines of not-current windows
 
     -- groups, mostly used for styling UI elements.
     -- Comment them out and add your own properties to override the defaults.
