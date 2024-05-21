@@ -107,10 +107,18 @@ local theme = lush(function(injected_functions)
     PmenuSel       { fg = Normal.bg, bg = Normal.fg }, -- Popup menu: Selected item.
     SignColumn     { bg = Normal.bg }, -- Column where |signs| are displayed
 
-
     DiffDelete     { bg = light_red, fg = Normal.fg }, -- Diff mode: Deleted line |diff.txt|
+    -- note `Removed` seems to replace `DiffDelete` in nvim >= 0.10.0
+    Removed     { bg = light_red, fg = Normal.fg }, -- Diff mode: Deleted line |diff.txt|
+
     DiffChange     { bg = center_right_right.li(80), fg = Normal.fg }, -- Diff mode: Changed line |diff.txt|
+    -- note `Changed` seems to replace `DiffChange` in nvim >= 0.10.0
+    Changed     { bg = center_right_right.li(80), fg = Normal.fg }, -- Diff mode: Changed line |diff.txt|
+
     DiffAdd        { bg = green, fg = Normal.fg }, -- Diff mode: Added line |diff.txt|
+    -- note `Added` seems to replace `DiffAdd` in nvim >= 0.10.0
+    Added        { bg = green, fg = Normal.fg }, -- Diff mode: Added line |diff.txt|
+
     DiffText       { bg = light_red, fg = Normal.fg }, -- Diff mode: Changed text within a changed line |diff.txt|
 
     TelescopeNormal { fg = Normal.fg, bg = Normal.bg.da(5) },
